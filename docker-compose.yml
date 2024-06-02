@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  mongo:
+    image: mongo:latest
+    hostname: mongo-server
+    restart: unless-stopped
+    volumes:
+      - ./volumes/mongodb:/data/db:rw
+
+  screenshot-service:
+    build: .
+    shm_size: '1gb'
+    container_name: screenshot-service
+    hostname: screenshot-service-server
+    restart: unless-stopped
+    privileged: true
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      - MONGODB_DSN=mongodb://mongo-server:27017/
+      - MONGODB_DATABASE_NAME=screenshoter
+      - PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+    volumes:
+      - ./volumes/screenshoter:/var/lib/screenshoter:rw
+    depends_on:
+      - mongo
+    cap_add:
+      - SYS_ADMIN

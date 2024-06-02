@@ -1,0 +1,5 @@
+fastapi==0.111.0
+motor==3.4.0
+playwright==1.44.0
+uvicorn==0.30.0
+pydantic-settings==2.2.1
