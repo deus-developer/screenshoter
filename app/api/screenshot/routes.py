@@ -1,6 +1,6 @@
 import asyncio
 
-from fastapi import APIRouter, status, Query
+from fastapi import APIRouter, status
 from fastapi.background import BackgroundTasks
 from fastapi.responses import Response
 from pydantic import UUID4
