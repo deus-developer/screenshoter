@@ -1,13 +1,15 @@
-FROM mcr.microsoft.com/playwright/python:latest
+FROM mcr.microsoft.com/playwright/python:v1.44.0
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install playwright==1.44.0 && playwright install --with-deps chromium
 
-COPY ./src /app
-COPY ./entrypoint.sh /app
-RUN chmod +x ./entrypoint.sh
+COPY requirements.txt /app
+RUN pip install -r requirements.txt
+
+COPY app /app
+COPY entrypoint.sh /app
+RUN chmod +x /app/entrypoint.sh
 
 EXPOSE 80
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]

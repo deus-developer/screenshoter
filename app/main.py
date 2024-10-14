@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager, AsyncExitStack
 
 from fastapi import FastAPI
@@ -10,6 +11,8 @@ from exception_handlers import setup_exception_handlers
 from services.browser.browser_wrapper import BrowserWrapper
 from services.browser_settings.service import BrowserSettingsService
 from services.database.uow import UnitOfWork
+
+logging.basicConfig(level=logging.INFO)
 
 
 @asynccontextmanager
